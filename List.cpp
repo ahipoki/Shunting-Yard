@@ -1,14 +1,21 @@
 #include <iostream>
 #include <cstring>
+#include "Node.h"
+#include "List.h"
 
 using namespace std;
 
-List::List()
+List::List(Node* newHead)
 {
 
 }
 
-List::q_pop()
+Node* List::qPop()
+{
+
+}
+
+Node* List::sPop()
 {
 
 }

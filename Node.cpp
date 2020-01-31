@@ -6,9 +6,10 @@ using namespace std;
 
 Node::Node(char* newValue)
 {
+  value = newValue;
+  right = NULL;
+  left = NULL;
   next = NULL;
-  //right = newRight;
-  //left = newLeft
 }
 
 Node::~Node()
@@ -16,32 +17,37 @@ Node::~Node()
   next = NULL;
 }
 
-Node::setLeft(Node*)
+char* Node::getValue()
 {
-  //left = newLeft;
+  return value;
 }
 
-Node::getLeft()
+Node::setLeft(Node* n)
 {
-  //return left;
+  left = n;
 }
 
-Node::setRight(Node*)
+Node* Node::getLeft()
 {
-  //right = newRight;
+  return left;
 }
 
-Node::getRight()
+Node::setRight(Node* n)
 {
-  //return right;
+  right = n;
 }
 
-Node::setNext()
+Node* Node::getRight()
 {
-  //next = newNext;
+  return right;
 }
 
-Node::getNext()
+Node::setNext(Node* n)
 {
-  //return next;
+  next = n;
+}
+
+Node* Node::getNext()
+{
+  return next;
 }

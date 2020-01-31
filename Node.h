@@ -9,12 +9,13 @@ class Node
  public:
   Node(char*);
   ~Node();
+  char* getValue();
   setLeft(Node*);
-  getLeft();
+  Node* getLeft();
   setRight(Node*);
-  getRight();
-  setNext();
-  getNext();
+  Node* getRight();
+  setNext(Node*);
+  Node* getNext();
  private:
   Node* next;
   Node* right;
