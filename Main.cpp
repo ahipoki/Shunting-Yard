@@ -21,30 +21,16 @@ int main()
   }
   if (strcmp(input, "INFIX") == 0)
   {
-    //cout << "Infix" << endl;
     infix();
   }
   else if (strcmp(input, "PREFIX") == 0)
   {
-    //cout << "Prefix" << endl;
     prefix();
   }
   else if (strcmp(input, "POSTFIX") == 0)
   {
-    //cout << "Postfix" << endl;
     postfix();
   }
-  /* while there are tokens to be read
-   *    read a token
-   *    if the token is a number, then:
-   *       push it to the output queue
-   *    else if the token is a function then:
-   *       push it onto the operator stack
-   *    if the token is an operator, then:
-   *       while ((there is a function at the top of the operator stack) or (there is an operator at the top of the operator stack with greater precedence) or (the operator at the top of the operator stack has equal precedence and the token is left associative) and (the operator at the top of the operator stack is not a left parenthesis):
-   *          pop operators from the operator stack onto the output queue
-   *       push it onto the operator stack
-   *    if the token is a left paren (i.e. "("), then:
    *       push it onto the operator stack.
    *    if the token is a right paren (i.e. ")"), then:
    *       while the operator at the top of the operator stack is not a left paren:
@@ -56,6 +42,23 @@ int main()
    *       pop the operator from the operator stack onto the output queue.
    *exit.
    */
+}
+
+void shuntingYard()
+{
+  //While (there are tokens to be read)
+  //  read a token;
+  //  if (token == number){
+  //    push it to output queue;
+  //  else if (token == function){
+  //    push it onto operator stack;
+  //  if (token == operator){
+  //    while ((there is function at top of operator stack) || (there is operator at top of operator stack w/greater precedence) || (operator at top of operator stack has equal precedence and token is left associative) && (operator at top of operator stack != '(')){
+  //      pop operators from operator stack onto output queue;
+  //    }
+  //    push it onto operator stack;
+  //  }
+  //  if (token == '('){
 }
 
 void infix()
