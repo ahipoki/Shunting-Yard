@@ -7,12 +7,17 @@
 
 using namespace std;
 
-class List
-{
+class List{
  public:
   List(Node*);
   Node* qPop();
   Node* sPop();
+  Node* qPeek();
+  Node* sPeek();
+  Node* qPush();
+  Node* sPush();
+  Node* enqueue();
+  Node* dequeue();
  private:
 };
 

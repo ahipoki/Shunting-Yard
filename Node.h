@@ -4,8 +4,7 @@
 
 using namespace std;
 
-class Node
-{
+class Node{
  public:
   Node(char*);
   ~Node();

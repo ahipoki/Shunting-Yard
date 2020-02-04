@@ -15,37 +15,21 @@ int main()
   cout << "Enter a mathematical expression" << endl;
   cout << "Do you want to output the expression as infix, prefix, or postfix notation?" << endl;
   cin.getline(input, 80);
-  for (int i = 0; i < strlen(input); i++)
-  {
+  for (int i = 0; i < strlen(input); i++){
     input[i] = toupper(input[i]);
   }
-  if (strcmp(input, "INFIX") == 0)
-  {
+  if (strcmp(input, "INFIX") == 0) {
     infix();
   }
-  else if (strcmp(input, "PREFIX") == 0)
-  {
+  else if (strcmp(input, "PREFIX") == 0){
     prefix();
   }
-  else if (strcmp(input, "POSTFIX") == 0)
-  {
+  else if (strcmp(input, "POSTFIX") == 0){
     postfix();
   }
-   *       push it onto the operator stack.
-   *    if the token is a right paren (i.e. ")"), then:
-   *       while the operator at the top of the operator stack is not a left paren:
-   *         pop the operator from the operator stack onto the output queue.
-   *       if there is a left paren at the top of the operator stack, then:
-   *          pop the operator from the operator stack and discard it
-   * if there are no more tokens to read then:
-   *    while there are still operator tokens on the stack:
-   *       pop the operator from the operator stack onto the output queue.
-   *exit.
-   */
 }
 
-void shuntingYard()
-{
+void shuntingYard(){
   //While (there are tokens to be read)
   //  read a token;
   //  if (token == number){
@@ -59,10 +43,24 @@ void shuntingYard()
   //    push it onto operator stack;
   //  }
   //  if (token == '('){
+  //    push it onto operator stack
+  //  if (token == ')'){
+  //    while (operator at top of operator stack != '('){
+  //      pop operator from operator stack onto output queue
+  //    }
+  //    if (there is '(' at top of operator stack){
+  //      pop operator from operator stack and discard it
+  //    }
+  //  }
+  //if (tokens == 0){
+  //  while (operator tokens on stack != 0){
+  //    pop operator from operator stack onto output queue
+  //  }
+  //}
+  //Exit
 }
 
-void infix()
-{//Infix Traversal
+void infix(){//Infix Traversal
   //if (tree not empty)
   //  if (tree token is operator)
   //  print (open parenthesis)
@@ -79,8 +77,7 @@ void infix()
   cout << "Infix" << endl;
 }
 
-void postfix()
-{//Postfix Traversal
+void postfix(){//Postfix Traversal
   //if (tree not empty)
   //  postfix (tree left subtree)
   //  postfix (tree right subtree)
@@ -89,8 +86,7 @@ void postfix()
   cout << "Postfix" << endl;
 }
 
-void prefix()
-{//Prefix Traversal
+void prefix(){//Prefix Traversal
   //if (tree not empty)
   //  print (tree token)
   //  prefix (tree left subtree)
