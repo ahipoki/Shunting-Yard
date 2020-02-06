@@ -1,5 +1,8 @@
 #include <iostream>
 #include <cstring>
+#include <functional>
+#include <deque>
+#include <math.h>
 #include "Node.h"
 #include "List.h"
 
