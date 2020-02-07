@@ -1,13 +1,13 @@
 #include <iostream>
 #include <cstring>
-#include <functional>
-#include <deque>
-#include <math.h>
+#include <vector>
 #include "Node.h"
-#include "List.h"
 
 using namespace std;
 
+Node* getPostfix(char*);
+void enqueue(Node*&, char*);
+char* dequeue(Node*&);
 void infix();
 void prefix();
 void postfix();
@@ -97,3 +97,4 @@ void prefix(){//Prefix Traversal
   //end if
   cout << "Prefix" << endl;
 }
+
