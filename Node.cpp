@@ -4,15 +4,15 @@
 
 using namespace std;
 
-Node::Node(char* newValue){
-  value = newValue;
+Node::Node(char* c){
+  value = c;
   right = NULL;
   left = NULL;
   next = NULL;
 }
 
 Node::~Node(){//Node destructor
-  next = NULL;
+
 }
 
 char* Node::getValue(){//Get value
@@ -20,7 +20,7 @@ char* Node::getValue(){//Get value
   //Return value
 }
 
-Node::setLeft(Node* n){//Set left
+void Node::setLeft(Node* n){//Set left
   left = n;
 }
 
@@ -29,7 +29,7 @@ Node* Node::getLeft(){//Get left
   //Return left
 }
 
-Node::setRight(Node* n){//Set right
+void Node::setRight(Node* n){//Set right
   right = n;
 }
 
@@ -38,7 +38,7 @@ Node* Node::getRight(){//Get right
   //Return right
 }
 
-Node::setNext(Node* n){//Set next
+void Node::setNext(Node* n){//Set next
   next = n;
 }
 
@@ -46,3 +46,4 @@ Node* Node::getNext(){//Get next
   return next;
   //Return next
 }
+
