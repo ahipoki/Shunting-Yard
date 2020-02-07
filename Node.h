@@ -1,6 +1,7 @@
 #ifndef NODE_H
 #define NODE_H
 #include <iostream>
+#include <cstring>
 
 using namespace std;
 
@@ -9,11 +10,11 @@ class Node{
   Node(char*);
   ~Node();
   char* getValue();
-  setLeft(Node*);
+  void setLeft(Node*);
   Node* getLeft();
-  setRight(Node*);
+  void setRight(Node*);
   Node* getRight();
-  setNext(Node*);
+  void setNext(Node*);
   Node* getNext();
  private:
   Node* next;
@@ -23,3 +24,4 @@ class Node{
 };
 
 #endif
+
