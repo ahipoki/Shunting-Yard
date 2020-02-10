@@ -20,8 +20,8 @@ char* Node::getValue(){//Get value
   //Return value
 }
 
-void Node::setLeft(Node* n){//Set left
-  left = n;
+void Node::setLeft(Node* newLeft){//Set left
+  left = newLeft;
 }
 
 Node* Node::getLeft(){//Get left
@@ -29,8 +29,8 @@ Node* Node::getLeft(){//Get left
   //Return left
 }
 
-void Node::setRight(Node* n){//Set right
-  right = n;
+void Node::setRight(Node* newRight){//Set right
+  right = newRight;
 }
 
 Node* Node::getRight(){//Get right
@@ -38,8 +38,8 @@ Node* Node::getRight(){//Get right
   //Return right
 }
 
-void Node::setNext(Node* n){//Set next
-  next = n;
+void Node::setNext(Node* newNext){//Set next
+  next = newNext;
 }
 
 Node* Node::getNext(){//Get next
