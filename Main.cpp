@@ -2,16 +2,22 @@
 #include <cstring>
 #include <vector>
 #include "Node.h"
-#include "List.h"
+//#include "List.h"
 
 using namespace std;
 
 Node* getPostfix(char*);
 void enqueue(Node*&, char*);
 char* dequeue(Node*&);
-void infix();
-void prefix();
-void postfix();
+void push(Node*&, Node*);
+void pop(Node*&, bool de = true);
+void peek(Node*);
+Node* peekNode(Node*);
+vector<char*>* split(char* c, char del);
+void strupper(char* str);
+//void infix();
+//void prefix();
+//void postfix();
 
 int main()
 {
@@ -19,37 +25,80 @@ int main()
   cout << "Enter a mathematical expression" << endl;
   cout << "Do you want to output the expression as infix, prefix, or postfix notation?" << endl;
   cin.getline(input, 80);
-  for (int i = 0; i < strlen(input); i++){
-    input[i] = toupper(input[i]);
-  }
+  strupper(input);
+  //for (int i = 0; i < strlen(input); i++){
+  //input[i] = toupper(input[i]);
+  //}
   if (strcmp(input, "INFIX") == 0) {
-    infix();
+    cout << "Infix" << endl;
+    //infix();
   }
   else if (strcmp(input, "PREFIX") == 0){
-    prefix();
+    cout << "Prefix" << endl;
+    //prefix();
   }
   else if (strcmp(input, "POSTFIX") == 0){
-    postfix();
+    //postfix();
+    cout << "Postfix" << endl;
   }
 }
 
-void shuntingYard(List* newList, Node* &head){
-  if (head == NULL){
-    head = new Node(newList);
-    return;
+vector<char*>* split(char* c, char del)
+{
+  vector<char*>*
+}
+
+void enqueue(Node*&, char*)
+{
+
+}
+
+char* dequeue(Node*&);
+{
+
+}
+
+void push(Node*&, Node*)
+{
+
+}
+
+void pop(Node*&, bool de = true)
+{
+
+}
+
+void peek(Node*)
+{
+
+}
+
+void strupper(char* str)
+{
+  int len = strlen(str);
+  for (int i = 0; i < len; i++)
+  {
+    str[i] = toupper(str[i]);
   }
-  if (head->getNext() != NULL){
+}
+
+//void shuntingYard(List* newList, Node* &head){
+//if (head == NULL){
+//head = new Node(newList);
+//return;
+//}
+//if (head->getNext() != NULL){
     //if (newList->qPeek() == number){
-      newList->qPush();
+//newList->qPush();
       //}
     //else if (newList->qPeek() == function){
-      newList->sPush();
+//newList->sPush();
       //}
     //else if (newList->qPeek() == operator){
       //while ((there is function at top of operator stack) || (there is operator at top of operator stack w/greater precedence) || (operator at top of operator stack has equal precedence and token is left associative) && (operator at top of operator stack != '(')){
       //pop operators from operator stack onto output queue;
       //}
-      newList->sPush();
+      //newList->sPush();
     //}
     //if (newList->qPeek() == '('){
     //push it onto operator stack
@@ -66,40 +115,40 @@ void shuntingYard(List* newList, Node* &head){
     //while (operator tokens on stack != 0){
       //pop operator from operator stack onto output queue
     //}
-  }
+//}
   //Exit
-}
+//}
 
-void infix(){//Infix Traversal
+//void infix(){//Infix Traversal
 //if (tree not empty){
   //if (tree token is operator){
-      cout << "(" << endl;
-    }
+//cout << "(" << endl;
+//}
   //infix (tree left subtree)
   //print (tree token)
   //infix (tree right subtree)
   //if (tree token is operator)
-    cout << ")" << endl;
-    }
-  }
-  cout << "Infix" << endl;
-}
+//cout << ")" << endl;
+//}
+//}
+//cout << "Infix" << endl;
+//}
 
-void postfix(){//Postfix Traversal
+//void postfix(){//Postfix Traversal
 //if (tree not empty){
   //postfix (tree left subtree)
   //postfix (tree right subtree)
   //print (tree token)
-  }
-  cout << "Postfix" << endl;
-}
+  //}
+  //cout << "Postfix" << endl;
+//}
 
-void prefix(){//Prefix Traversal
+//void prefix(){//Prefix Traversal
 //if (tree not empty){
   //print (tree token)
   //prefix (tree left subtree)
   //prefix (tree right subtree)
-  }
-  cout << "Prefix" << endl;
-}
+  //}
+  //cout << "Prefix" << endl;
+//}
 
