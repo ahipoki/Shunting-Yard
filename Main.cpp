@@ -97,26 +97,32 @@ List* shuntingYard(vector<char*>* in){//Used pseudocode from https://en.wikipedi
   cout<<"testing"<<endl;
     List* outQueue = new List();
     List* opStack = new List();
-    vector<char*>::iterator it = in->begin();
-    while (it != in->end()){
+    vector<char*>::iterator it;
+    for (it = in->begin(); it != in->end(); it++){
         char* value = (*it);
         if (checkDigit(value)){
             outQueue->push(value);
-	    cout<<"Number"<<endl;
         }
         else if (strcmp(value,"(") == 0){
             opStack->push(value);
-	    cout<<"Number2"<<endl;
         }
         else if (strcmp(value,")") == 0){
-            while (strcmp(opStack->sPeek(),"(") != 0){
-                outQueue->push(opStack->sPop());
-            }
+	  cout<<"Number3"<<endl;
+	  //while (strcmp(opStack->sPeek(),"(") != 0){
+	  //outQueue->push(opStack->sPop());
+	  //cout<<"Number3"<<endl;
+	  //}
+	    cout<<"Number5"<<endl;
             opStack->sPop();
+	    cout<<"Number6"<<endl;
         }
         else{
+	  cout<<"Number4"<<endl;
             int cPrecedence = getPrecedence(value);
+	    cout<<"Next"<<endl;
             char* next = opStack->sPeek();
+	    //Seg faulting here
+	    cout<<"Number5"<<endl;
             while (next && (getPrecedence(next) > cPrecedence || (getPrecedence(next) == cPrecedence && strcmp(next, "^") != 0)) && strcmp(next,"(") != 0){
                 outQueue->push(opStack->sPop());
                 next = opStack->sPeek();
