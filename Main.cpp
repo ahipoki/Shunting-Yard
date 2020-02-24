@@ -17,7 +17,7 @@ void m_postfix(Node*);
 void infix(Node*);
 int main(){
   bool running = true;
-  while(run){
+  while(running){
     //prompt for input
     cout<<"Enter a mathematical expression separated by spaces"<<endl;
     char* input = new char();
@@ -58,7 +58,7 @@ int main(){
       }
       //break out of the code
       else if(strcmp(ex, "QUIT") == 0){
-	run = false;
+	running = false;
 	break;
       }
       else{
@@ -120,7 +120,7 @@ List* shuntingYard(vector<char*>* in){
     }
     //if it is a operator
     else{
-      int c_prec = getPrecedence(val);
+      int c_prec = getPrecedence(value);
       char* next = op_stack->sPeek();
       /*push the values in the operator stack while
 	there is a function at the top of the operator stack,
@@ -166,8 +166,8 @@ int getPrecedence(char* in){
 }
 Node* makeTree(List* postfix, List* stack){
   //get the first val in postfix
-  char* value = postfix->q_pop();
-  if(val != NULL){
+  char* value = postfix->qPop();
+  if(value != NULL){
     Node* temp = new Node(value);
     //if it is a digit, push it into the stack
     if(checkDigit(value)){
