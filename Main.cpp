@@ -165,37 +165,32 @@ Node* makeTree(List* postfix, List* stack){
     makeTree(postfix, stack);
 }
 
-void infix(){//Infix Traversal
-  //if (tree not empty)
-  //  if (tree token is operator)
-  //  print (open parenthesis)
-  cout << "(" << endl;
-  //  end if
-  //  infix (tree left subtree)
-  //  print (tree token)
-  //  infix (tree right subtree)
-  //  if (tree token is operator)
-  //    print (close parenthesis)
-  cout << ")" << endl;
-  //  end if
-  //end if
-  cout << "Infix" << endl;
+void infix(Node* tree){//Infix Traversal
+    if (tree != NULL){
+        if (!checkDigit(tree->getValue())){
+            cout<<"(";
+        }
+        infix(tree->getLeft());
+        cout<<tree->getValue();
+        infix(tree->getRight());
+        if (!checkDigit(tree->getValue())){
+            cout<<")";
+        }
+    }
 }
 
-void postfix(){//Postfix Traversal
-  //if (tree not empty)
-  //  postfix (tree left subtree)
-  //  postfix (tree right subtree)
-  //  print (tree token)
-  //end if
-  cout << "Postfix" << endl;
+void m_postfix(Node* tree){//Postfix Traversal
+    if (tree != NULL){
+        m_postfix(tree->getLeft());
+        m_postfix(tree->getRight());
+        cout<<tree->getValue();
+    }
 }
 
-void prefix(){//Prefix Traversal
-  //if (tree not empty)
-  //  print (tree token)
-  //  prefix (tree left subtree)
-  //  prefix (tree right subtree)
-  //end if
-  cout << "Prefix" << endl;
+void prefix(Node* tree){//Prefix Traversal
+    if (tree != NULL){
+        cout<<tree->getValue();
+        prefix(tree->getLeft());
+        prefix (tree->getRight());
+    }
 }
