@@ -24,10 +24,15 @@ int main()
         cout<<"Enter a mathematical expression separated by spaces"<<endl;
         char* input = new char();
         cin.getline(input,80);
+	cout<<"Test1"<<endl;
         vector<char*>* in = split(input);
+	cout<<"Test2"<<endl;
         List* postfix = shuntingYard(in);
+	cout<<"test3"<<endl;
         List* stack = new List();
+	cout<<"test4"<<endl;
         Node* tree = makeTree(postfix,stack);
+	cout<<"Test5"<<endl;
         while (true){
             cout<<"Do you want to output the expression as INFIX, PREFIX, or POSTFIX notation, or do you want to QUIT, or type a NEW expression?"<<endl;
             char* ex = new char();
@@ -89,6 +94,7 @@ vector<char*>* split(char* in){
 }    
 
 List* shuntingYard(vector<char*>* in){//Used pseudocode from https://en.wikipedia.org/wiki/Shunting-yard_algorithm
+  cout<<"testing"<<endl;
     List* outQueue = new List();
     List* opStack = new List();
     vector<char*>::iterator it = in->begin();
@@ -96,9 +102,11 @@ List* shuntingYard(vector<char*>* in){//Used pseudocode from https://en.wikipedi
         char* value = (*it);
         if (checkDigit(value)){
             outQueue->push(value);
+	    cout<<"Number"<<endl;
         }
         else if (strcmp(value,"(") == 0){
             opStack->push(value);
+	    cout<<"Number2"<<endl;
         }
         else if (strcmp(value,")") == 0){
             while (strcmp(opStack->sPeek(),"(") != 0){
@@ -109,7 +117,7 @@ List* shuntingYard(vector<char*>* in){//Used pseudocode from https://en.wikipedi
         else{
             int cPrecedence = getPrecedence(value);
             char* next = opStack->sPeek();
-            while (next && (getPrecedence(next) > cPrecedence || (getPrecedence(next == cPrecedence && strcmp(next, "^") != 0)) && strcmp(next,"(") != 0){
+            while (next && (getPrecedence(next) > cPrecedence || (getPrecedence(next) == cPrecedence && strcmp(next, "^") != 0)) && strcmp(next,"(") != 0){
                 outQueue->push(opStack->sPop());
                 next = opStack->sPeek();
             }
@@ -124,7 +132,7 @@ List* shuntingYard(vector<char*>* in){//Used pseudocode from https://en.wikipedi
 
 bool checkDigit(char* in){
     for (int i = 0; i < strlen(in); i++){
-        if (!isDigit(in[i])){
+        if (!isdigit(in[i])){
             return false;
         }
     }

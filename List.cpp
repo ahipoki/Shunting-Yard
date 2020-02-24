@@ -74,7 +74,7 @@ char* List::getEnd(Node* &current,bool de){
 
 Node* List::getEndNode(Node* &current){
     if (current == NULL){
-        retun NULL;
+        return NULL;
     }
     else if (current->getNext() == NULL){
         return current;
