@@ -7,18 +7,23 @@
 
 using namespace std;
 
-class List {
+class List{
  public:
-  List(Node*);
-  Node* qPop();
-  Node* sPop();
-  Node* qPeek();
-  Node* sPeek();
-  Node* qPush();
-  Node* sPush();
-  Node* enqueue();
-  Node* dequeue();
+  List();
+  void push(char*);
+  char* qPop();
+  char* sPop();
+  char* qPeek();
+  char* sPeek();
+  void pushNode(Node*);
+  Node* peekNode();
+  char* getEnd(Node*&, bool);
+  void pushEnd(Node*&, char*, Node*, bool);
+  Node* getEndNode(Node*&);
+  char* copy(char*);
+  ~List();
  private:
+  Node* head;
 };
 
 #endif
