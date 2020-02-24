@@ -5,113 +5,150 @@
 
 using namespace std;
 
-List::List(){
-    head = NULL;
+List::List(){//List function
+  head = NULL;
+  //Head is NULL
 }
 
-void List::push(char* newValue){
-    pushEnd(head,newValue,NULL,true);
-    return;
+void List::push(char* newValue){//Push
+  pushEnd(head,newValue,NULL,true);
+  //Push end
+  return;
+  //Return
 }
 
-void List::pushNode(Node* newValue){
-    pushEnd(head,NULL,newValue,false);
+void List::pushNode(Node* newValue){//Push node
+  pushEnd(head,NULL,newValue,false);
+  //Push end
 }
 
-char* List::qPop(){
-    if (head == NULL){
-        return NULL;
+char* List::qPop(){//Queue pop
+  if (head == NULL){//If head is NULL
+    return NULL;
+    //Return NULL
+  }
+  char* value = copy(head->getValue());
+  Node* temp = head->getNext();
+  delete head;
+  head = temp;
+  return value;
+}
+
+char* List::sPop(){//Stack pop
+  return getEnd(head,true);
+  //Return getEnd
+}
+
+char* List::qPeek(){//Queue peek
+  if (head == NULL){//If head is NULL
+    return NULL;
+    //Return NULL
+  }
+  return head->getValue();
+  //Return value of head
+}
+
+char* List::sPeek(){//Stack peek
+  return getEnd(head,false);
+  //Return end
+}
+
+Node* List::peekNode(){//Peek node
+  return getEndNode(head);
+  //Return end node
+}
+
+char* List::getEnd(Node* &current,bool de){//Get end
+  if (current == NULL){//If current is not NULL
+    return NULL;
+    //Return NULL
+  }
+  if (current->getNext() == NULL){//If next node is not NULL
+    char* value = copy(current->getValue());
+    //Copy next value
+    if (de){//If delete
+      current = NULL;
+      //Current is NULL
+      delete current;
+      //Delete current
     }
-    char* value = copy(head->getValue());
-    Node* temp = head->getNext();
-    delete head;
-    head = temp;
     return value;
-}
-
-char* List::sPop(){
-    return getEnd(head,true);
-}
-
-char* List::qPeek(){
-    if (head == NULL){
-        return NULL;
+    //Return value
+  }
+  if (current->getNext()->getNext() == NULL){//If next's next is NULL
+    char* value = copy(current->getNext()->getValue());
+    //Copy next's value
+    if (de){//If delete
+      current->setNext(NULL);
+      //Next is NULL
+      delete current->getNext();
+      //Delete next
     }
-    return head->getValue();
+    return value;
+    //Return value
+  }
+  Node* next = current->getNext();
+  //Next is next node
+  getEnd(next,de);
+  //Get end
 }
 
-char* List::sPeek(){
-    return getEnd(head,false);
+Node* List::getEndNode(Node* &current){//Get end node
+  if (current == NULL){//If current is NULL
+    return NULL;
+    //Return NULL
+  }
+  else if (current->getNext() == NULL){//Else if next is NULL
+    return current;
+    //Return current
+  }
+  Node* next = current->getNext();
+  //Next is next node
+  getEndNode(next);
+  //Get end node
 }
 
-Node* List::peekNode(){
-    return getEndNode(head);
+void List::pushEnd(Node* &current, char* charIn, Node* nodeIn, bool type){//Push end
+  if (current == NULL){//If current is NULL
+    if (type){//If type
+      current = new Node(charIn);
+      //Current is new char in
+    }
+    else{//Anything else
+      current = nodeIn;
+      //Current is node in
+    }
+    return;
+    //Return
+  }
+  if (current->getNext() == NULL){//If next is NULL
+    if (type){//If type
+      current->setNext(new Node(charIn));
+      //Next is new node char in
+    }
+    else{//Anything else
+      current->setNext(nodeIn);
+      //Next is node in
+    }
+    return;
+    //Return
+  }
+  Node* next = current->getNext();
+  //Next is next node
+  pushEnd(next,charIn,nodeIn,type);
+  //Push end
 }
 
-char* List::getEnd(Node* &current,bool de){
-    if (current = NULL){
-        return NULL;
-    }
-    if (current->getNext() == NULL){
-        char* value = copy(current->getValue());
-        if (de){
-            current = NULL;
-            delete current;
-        }
-        return value;
-    }
-    if (current->getNext()->getNext() == NULL){
-        char* value = copy(current->getNext()->getValue());
-        if (de){
-            current->setNext(NULL);
-            delete current->getNext();
-        }
-        return value;
-    }
-    Node* next = current->getNext();
-    getEnd(next,de);
+char* List::copy(char* in){//Copy function
+  char* out = new char[strlen(in)+1];
+  //Out is new char*
+  strcpy(out,in);
+  //Copy in to out
+  return out;
+  //Return out
 }
 
-Node* List::getEndNode(Node* &current){
-    if (current == NULL){
-        return NULL;
-    }
-    else if (current->getNext() == NULL){
-        return current;
-    }
-    Node* next = current->getNext();
-    getEndNode(next);
-}
-
-void List::pushEnd(Node* &current, char* charIn, Node* nodeIn, bool type){
-    if (current == NULL){
-        if (type){
-            current = new Node(charIn);
-        }
-        else{
-            current = nodeIn;
-        }
-        return;
-    }
-    if (current->getNext() == NULL){
-        if (type){
-            current->setNext(new Node(charIn));
-        }
-        else{
-            current->setNext(nodeIn);
-        }
-        return;
-    }
-    Node* next = current->getNext();
-    pushEnd(next,charIn,nodeIn,type);
-}
-
-char* List::copy(char* in){
-    char* out = new char[strlen(in)+1];
-    strcpy(out,in);
-    return out;
-}
-
-List::~List(){
-    delete head;
+List::~List(){//Destructor
+  delete head;
+  //Delete head
 }

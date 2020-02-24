@@ -22,12 +22,9 @@ int main(){
     cout<<"Enter a mathematical expression separated by spaces"<<endl;
     char* input = new char();
     cin.getline(input, 80);
-    //split the input by spaces and put it into a char* vector
     vector<char*>* in = split(input);
-    //get the postfix expression using shunting yard
     List* postfix = shuntingYard(in);
     List* stack = new List();
-    //make the binary expression tree
     Node* tree = makeTree(postfix, stack);
     while(true){
       cout<<"Type POSTFIX to get the postfix expression, PREFIX to get the prefix expression, and INFIX to get the infix expression, QUIT to quit, and NEW to type a new expression"<<endl;
@@ -37,12 +34,10 @@ int main(){
       for(int i = 0; i<sizeof(ex); i++){
 	ex[i] = toupper(ex[i]);
       }
-      //traverse the binary tree to print the prefix expression
       if(strcmp(ex, "PREFIX") == 0){
 	prefix(tree);
 	cout<<endl;
       }
-      //traverse the binary tree to print the postfix expression
       else if(strcmp(ex, "POSTFIX") == 0){
 	m_postfix(tree);
 	cout<<endl;
@@ -76,7 +71,6 @@ vector <char*>* split (char* in){
   char* temp = new char[strlen(in)]();
   //loop through input
   for(int i = 0; i<strlen(in); i++){
-    //if found a space, push everything from previous space to the current space into the vector
     if(in[i] == ' '){
       out->push_back(temp);
       counter = 0;
@@ -111,7 +105,6 @@ List* shuntingYard(vector<char*>* in){
     else if(strcmp(value, "(") == 0){
       op_stack->push(value);
     }
-    //if it is a right bracket, push everthing in the operator stack into the output queue until the left bracket is found
     else if(strcmp(value, ")") == 0){
       while(strcmp(op_stack->sPeek(), "(") != 0){
 	out_queue->push(op_stack->sPop());
@@ -122,12 +115,6 @@ List* shuntingYard(vector<char*>* in){
     else{
       int c_prec = getPrecedence(value);
       char* next = op_stack->sPeek();
-      /*push the values in the operator stack while
-	there is a function at the top of the operator stack,
-	or there is an operator at the top of the operator stack with greater precedence,
-	or the operator at the top of the operator stack has equal precedence and the token is left associative
-        and the operator at the top of the operator stack is not a left parenthesis
-       */ 
       while(next && (getPrecedence(next)>c_prec || (getPrecedence(next) == c_prec && strcmp(next, "^") != 0)) && strcmp(next, "(") != 0){
 	out_queue->push(op_stack->sPop());
 	next = op_stack->sPeek();
@@ -135,7 +122,6 @@ List* shuntingYard(vector<char*>* in){
       op_stack->push(value);
     }
   }
-  //push the rest of the values in the operator stack into the output queue
   while(op_stack->sPeek() != NULL){
     out_queue->push(op_stack->sPop());
   }
@@ -146,7 +132,7 @@ bool checkDigit(char* in){
   //if the input is a digit, return true, else return false
   for(int i = 0; i<strlen(in);i++){
     if(!isdigit(in[i])){
-	return false;
+      return false;
     }
   }
   return true;
@@ -175,7 +161,6 @@ Node* makeTree(List* postfix, List* stack){
     }
     //if it is a operator
     else{
-      //make the node's val the operator, and set the right val to the first val in the stack and the left val to the next
       temp->setRight(stack->peekNode());
       stack->sPop();
       temp->setLeft(stack->peekNode());

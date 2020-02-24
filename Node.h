@@ -9,18 +9,30 @@ class Node{
  public:
   Node(char*);
   ~Node();
+  //Destructor
   char* getValue();
-  void setLeft(Node*);
-  Node* getLeft();
-  void setRight(Node*);
-  Node* getRight();
+  //Get value
   void setNext(Node*);
+  //Set next
   Node* getNext();
+  //Get next
+  void setLeft(Node*);
+  //Set left
+  Node* getLeft();
+  //Get left
+  void setRight(Node*);
+  //Set right
+  Node* getRight();
+  //Get right
  private:
   Node* next;
+  //Next
   Node* right;
+  //Right
   Node* left;
+  //Left
   char* value;
+  //Value
 };
 
 #endif
