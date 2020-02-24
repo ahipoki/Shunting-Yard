@@ -4,15 +4,17 @@
 
 using namespace std;
 
-Node::Node(char* c){
-  value = c;
+Node::Node(char* newValue){
+  value = new char[strlen(newValue)+1];
+  strcpy(value,newValue);
   right = NULL;
   left = NULL;
   next = NULL;
 }
 
 Node::~Node(){//Node destructor
-
+    delete[] value;
+    next = NULL;
 }
 
 char* Node::getValue(){//Get value
@@ -46,4 +48,3 @@ Node* Node::getNext(){//Get next
   return next;
   //Return next
 }
-
