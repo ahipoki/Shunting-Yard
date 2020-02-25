@@ -1,3 +1,8 @@
+/* Finn McKinley
+ * Shunting Yard
+ * 2/24/20
+ */
+
 #include <iostream>
 #include <cstring>
 #include <vector>
@@ -7,61 +12,95 @@
 
 using namespace std;
 
+void strupper(char* str);
+//Make input uppercase function
 vector<char*>* split(char*);
+//Split function
 List* shuntingYard(vector<char*>*);
+//Shunting yard function
 bool checkDigit(char*);
+//Check digit function
 int getPrecedence(char*);
+//Get precedence
 Node* makeTree(List*, List*);
+//Make tree function
 void prefix(Node*);
+//Prefix function
 void m_postfix(Node*);
+//Postfix function
 void infix(Node*);
-int main(){
+//Infix function
+
+int main()
+{//Main function
   bool running = true;
-  while(running){
-    //prompt for input
-    cout<<"Enter a mathematical expression separated by spaces"<<endl;
+  //Running bool
+  while(running){//While running
+    cout<<"Enter a mathematical equation separated by spaces"<<endl;
+    //Ask user for mathematical equation
     char* input = new char();
+    //Input
     cin.getline(input, 80);
+    //Get their input
     vector<char*>* in = split(input);
+    //Split it
     List* postfix = shuntingYard(in);
+    //New list with shunting yard function
     List* stack = new List();
+    //New list
     Node* tree = makeTree(postfix, stack);
-    while(true){
-      cout<<"Type POSTFIX to get the postfix expression, PREFIX to get the prefix expression, and INFIX to get the infix expression, QUIT to quit, and NEW to type a new expression"<<endl;
+    //Make a tree
+    while(true){//While true
+      cout<<"Type POSTFIX to get the postfix expression, PREFIX to get the prefix expression, and INFIX to get the infix expression, QUIT to quit, and NEW to type a new equation"<<endl;
+      //Ask the user if they want postfix, prefix, infix notation, new equation, or quit
       char* ex = new char();
+      //ex is new char
       cin.getline(ex, sizeof(ex));
-      //make all letters capital
-      for(int i = 0; i<sizeof(ex); i++){
-	ex[i] = toupper(ex[i]);
-      }
-      if(strcmp(ex, "PREFIX") == 0){
+      //Get user input with ex
+      strupper(ex);
+      //Make input all capital letters
+      if(strcmp(ex, "PREFIX") == 0){//If the user said prefix
 	prefix(tree);
+	//Call prefix function with tree
 	cout<<endl;
       }
-      else if(strcmp(ex, "POSTFIX") == 0){
+      else if(strcmp(ex, "POSTFIX") == 0){//Else if they said postfix
 	m_postfix(tree);
+	//Call postfix function with tree
 	cout<<endl;
       }
-      //traverse the binary tree to print the infix expression
-      else if(strcmp(ex, "INFIX") == 0){
+      else if(strcmp(ex, "INFIX") == 0){//Else if they said infix
 	infix(tree);
+	//Call infix function with tree
 	cout<<endl;
       }
-      //let the user type a new expression
-      else if(strcmp(ex, "NEW") == 0){
+      else if(strcmp(ex, "NEW") == 0){//Else if they said new
 	break;
+	//Break out so they can enter a new equation
       }
-      //break out of the code
-      else if(strcmp(ex, "QUIT") == 0){
+      else if(strcmp(ex, "QUIT") == 0){//Else if they said quit
 	running = false;
+	//Stop the program
 	break;
+	//Break out of the loop
       }
-      else{
+      else{//Anything else
 	cout<<"That's an invalid option"<<endl;
+	//Tell the user that's an invalid option
       }
     }
   }
   return 0;
+  //Return 0
+}
+
+void strupper(char* str){//Make input uppercase
+  int len = strlen(str);
+  //Len is the length of the input
+  for (int i = 0; i < len; i++){//For loop going through the length of the input
+    str[i] = toupper(str[i]);
+    //Make all letters of the input uppercase
+  }
 }
 
 vector <char*>* split (char* in){
