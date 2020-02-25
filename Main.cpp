@@ -109,140 +109,174 @@ vector <char*>* split (char* in){
   int counter = 0;
   char* temp = new char[strlen(in)]();
   //loop through input
-  for(int i = 0; i<strlen(in); i++){
-    if(in[i] == ' '){
+  for(int i = 0; i<strlen(in); i++){//For loop looping through length of in
+    if(in[i] == ' '){//If the char at in is a space
       out->push_back(temp);
+      //Push back the temp with out
       counter = 0;
+      //Counter equals 0
       temp = new char[strlen(in)]();
+      //Temp is a new char of length in
     }
-    //add the values between spaces into a temp array
-    else{
+    else{//Anything else
       temp[counter] = in[i];
+      //Counter # of temp equals i # of in
       counter++;
+      //Add 1 to the counter
     }
-    //push the last element
-    if(i == strlen(in)-1){
+    if(i == strlen(in)-1){//If i equals length of in - 1
       out->push_back(temp);
+      //Push back temp with out
     }
   }
   return out;
+  //Return out
 }
 
-List* shuntingYard(vector<char*>* in){
-  //used pseudo code from: https://en.wikipedia.org/wiki/Shunting-yard_algorithm
+List* shuntingYard(vector<char*>* in){//Shunting yard function
+  //Used pseudo code from: https://en.wikipedia.org/wiki/Shunting-yard_algorithm
   List* out_queue = new List();
+  //New list out_queue
   List* op_stack = new List();
-  vector<char*>::iterator i;
-  //iterate through the input
-  for(i = in->begin(); i !=in->end();i++){
-    char* value = (*i);
-    //if val is a digit, push it to the output queue
-    if(checkDigit(value)){
+  //New list operator stack
+  vector<char*>::iterator it;
+  //Iterator it
+  for(it = in->begin(); it !=in->end();i++){/Iterate through in
+    char* value = (*it);
+    //New char* value equals *it
+    if(checkDigit(value)){//If the value is a number
       out_queue->push(value);
+      //Push value with the out_queue
     }
-    //if it is a left bracket, push it to the operator stack
-    else if(strcmp(value, "(") == 0){
+    else if(strcmp(value, "(") == 0){//Else if value is a left parenthesis
       op_stack->push(value);
+      //Push value with operator stack
     }
-    else if(strcmp(value, ")") == 0){
-      while(strcmp(op_stack->sPeek(), "(") != 0){
+    else if(strcmp(value, ")") == 0){//Else if value is a right parenthesis
+      while(strcmp(op_stack->sPeek(), "(") != 0){//While the next one in the operator stack is not a left parenthesis
 	out_queue->push(op_stack->sPop());
+	//Pop from the operator stack with out queue
       }
       op_stack->sPop();
+      //Pop the next off the operator stack
     }
-    //if it is a operator
-    else{
+    else{//Anything else
       int c_prec = getPrecedence(value);
+      //C precedence is value of precedence
       char* next = op_stack->sPeek();
-      while(next && (getPrecedence(next)>c_prec || (getPrecedence(next) == c_prec && strcmp(next, "^") != 0)) && strcmp(next, "(") != 0){
+      //Next is new char* of next in operator stack
+      while(next && (getPrecedence(next)>c_prec || (getPrecedence(next) == c_prec && strcmp(next, "^") != 0)) && strcmp(next, "(") != 0){//While precedence is higher than 2nd precendence or precedence is equal and it's not a ^ and next is not a (
 	out_queue->push(op_stack->sPop());
+	//Pop off operator stack with pushing command through out_queue
 	next = op_stack->sPeek();
+	//Next is next of operator stack
       }
       op_stack->push(value);
+      //Push value with operator stack
     }
   }
-  while(op_stack->sPeek() != NULL){
+  while(op_stack->sPeek() != NULL){//While next on operator stack is not NULL
     out_queue->push(op_stack->sPop());
+    //Pop off operator stack push with out_queue
   }
   return out_queue;
+  //Return out_queue
 }
 
-bool checkDigit(char* in){
-  //if the input is a digit, return true, else return false
-  for(int i = 0; i<strlen(in);i++){
-    if(!isdigit(in[i])){
+bool checkDigit(char* in){//Check digit
+  for(int i = 0; i<strlen(in);i++){//For loop through length of in
+    if(!isdigit(in[i])){//If i of in is not a number
       return false;
+      //Return false
     }
   }
   return true;
+  //Return true
 }
-//get the precedence of a operator
-int getPrecedence(char* in){
-  if(strcmp(in, "+") == 0 || strcmp(in, "-") == 0){
+int getPrecedence(char* in){//Get precedence function
+  if(strcmp(in, "+") == 0 || strcmp(in, "-") == 0){//If it's a + or -
     return 1;
+    //Return 1
   }
-  else if(strcmp(in, "*") == 0 || strcmp(in, "/") == 0){
+  else if(strcmp(in, "*") == 0 || strcmp(in, "/") == 0){//Else if it's a * or /
     return 2;
+    //Return 2
   }
-  else if(strcmp(in, "^") == 0){
+  else if(strcmp(in, "^") == 0){//Else if it's a ^
     return 3;
+    //Return 3
   }
   return -1;
+  //Return -1
 }
-Node* makeTree(List* postfix, List* stack){
-  //get the first val in postfix
+Node* makeTree(List* postfix, List* stack){//Make tree function
   char* value = postfix->qPop();
-  if(value != NULL){
+  //Value is pop from postfix
+  if(value != NULL){//If value is not NULL
     Node* temp = new Node(value);
-    //if it is a digit, push it into the stack
-    if(checkDigit(value)){
+    //Temp is new node with value
+    if(checkDigit(value)){//If value is a number
       stack->pushNode(temp);
+      //Push temp node onto stack
     }
-    //if it is a operator
-    else{
+    else{//Anything else
       temp->setRight(stack->peekNode());
+      //Set right node with next in stack
       stack->sPop();
+      //Pop next off stack
       temp->setLeft(stack->peekNode());
+      //Set left node with next in stack
       stack->sPop();
+      //Pop next off stack
       stack->pushNode(temp);
+      //Push node temp onto stack
     }
   }
-  //if val is null, return it
-  else{
+  else{//Anything else
     return stack->peekNode();
+    //Return next in stack
   }
   makeTree(postfix, stack);
+  //Make tree with postix + stack
 }
 
-void prefix(Node* tree){
-  //traverse the tree to print prefix
-  if(tree != NULL){
+void prefix(Node* tree){//Prefix function
+  if(tree != NULL){//If tree is not NULL
     cout<<tree->getValue();
+    //Print value of tree
     prefix(tree->getLeft());
+    //Get left of tree
     prefix(tree->getRight());
+    //Get right of tree
   }
 }
 
-void m_postfix(Node* tree){
-  //traverse the tree to print postfix
-  if(tree != NULL){
+void m_postfix(Node* tree){//Postfix function
+  if(tree != NULL){//If tree isn't NULL
     m_postfix(tree->getLeft());
+    //Get left of tree
     m_postfix(tree->getRight());
+    //Get right of tree
     cout<<tree->getValue();
+    //Print value of tree
   }
 }
 
-void infix(Node* tree){
-  //traverse the tree to print infix
-  if(tree != NULL){
-    if(!checkDigit(tree->getValue())){
+void infix(Node* tree){//Infix function
+  if(tree != NULL){//If tree is not NULL
+    if(!checkDigit(tree->getValue())){//If value of tree is not a number
       cout<<"(";
+      //Print a left parenthesis
     }
     infix(tree->getLeft());
+    //Get left of tree
     cout<<tree->getValue();
+    //Print value of tree
     infix(tree->getRight());
-    if(!checkDigit(tree->getValue())){
+    //Get right of tree
+    if(!checkDigit(tree->getValue())){//If value of tree is not a number
       cout<<")";
+      //Print out a left parenthesis
     }
   }
 }
