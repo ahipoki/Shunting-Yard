@@ -141,7 +141,7 @@ List* shuntingYard(vector<char*>* in){//Shunting yard function
   //New list operator stack
   vector<char*>::iterator it;
   //Iterator it
-  for(it = in->begin(); it !=in->end();i++){/Iterate through in
+  for(it = in->begin(); it !=in->end();it++){//Iterate through in
     char* value = (*it);
     //New char* value equals *it
     if(checkDigit(value)){//If the value is a number
